@@ -11,7 +11,7 @@ def _settings():
     """
     parser.add_argument('--seed', type=int, default=1)
     parser.add_argument('--drop_prob', type=float, default=0.5)
-    parser.add_argument('--bsz', type=int, default=64, help='batch size')
+    parser.add_argument('--bsz', type=int, default=1, help='batch size') #原64
     parser.add_argument('--sample_numb', type=int, default=15, help='how many frames would you like to sample from a given video')
     parser.add_argument('--model_name', type=str, default='HMN', help='which model you would like to train/test?')
 
@@ -21,16 +21,16 @@ def _settings():
     parser.add_argument('--data_dir', type=str, default='./data')
     parser.add_argument('--checkpoints_dir', type=str, default='./checkpoints')
     parser.add_argument('--result_dir', type=str, default='-1')
-    parser.add_argument('--dataset_name', type=str, default='-1')
-    parser.add_argument('--backbone_2d_name', type=str, default='-1', help='2d backbone name (InceptionResNetV2)')
-    parser.add_argument('--backbone_3d_name', type=str, default='-1', help='3d backbone name (C3D)')
-    parser.add_argument('--object_name', type=str, default='-1', help='object features name (vg_objects)')
+    parser.add_argument('--dataset_name', type=str, default='MSVD') #-1
+    parser.add_argument('--backbone_2d_name', type=str, default='inceptionresnetv2', help='2d backbone name (InceptionResNetV2)') #-1
+    parser.add_argument('--backbone_3d_name', type=str, default='C3D', help='3d backbone name (C3D)')#-1
+    parser.add_argument('--object_name', type=str, default='vg_objects', help='object features name (vg_objects)')#-1
     parser.add_argument('--semantics_dim', type=int, default=768, help='semantics embedding dim')
 
     """
     =========================Encoder Settings===========================
     """
-    parser.add_argument('--backbone_2d_dim', type=int, default=2048, help='dimention for inceptionresnetv2')
+    parser.add_argument('--backbone_2d_dim', type=int, default=1536, help='dimention for inceptionresnetv2')#2048
     parser.add_argument('--backbone_3d_dim', type=int, default=2048, help='dimention for C3D')
     parser.add_argument('--object_dim', type=int, default=2048, help='dimention for vg_objects')
     parser.add_argument('--max_objects', type=int, default=8)
@@ -64,14 +64,14 @@ def _settings():
     """
     parser.add_argument('--grad_clip', type=float, default=5.0)
     parser.add_argument('--learning_rate', type=float, default=1e-4)
-    parser.add_argument('--lambda_entity', type=float, default=1.0)
-    parser.add_argument('--lambda_predicate', type=float, default=1.0)
-    parser.add_argument('--lambda_sentence', type=float, default=1.0)
-    parser.add_argument('--lambda_soft', type=float, default=0.1)
-    parser.add_argument('--max_epochs', type=int, default=20)
+    parser.add_argument('--lambda_entity', type=float, default=0.6) #1.0
+    parser.add_argument('--lambda_predicate', type=float, default=0.3)#1.0
+    parser.add_argument('--lambda_sentence', type=float, default=1.0)#1.0
+    parser.add_argument('--lambda_soft', type=float, default=0.5)#1.0
+    parser.add_argument('--max_epochs', type=int, default=2)#20
     parser.add_argument('--visualize_every', type=int, default=10)
     parser.add_argument('--save_checkpoints_every', type=int, default=200)
-    parser.add_argument('--save_checkpoints_path', type=str, default='-1')
+    parser.add_argument('--save_checkpoints_path', type=str, default='-1') #-1
 
     """
     =========================Testing Settings===========================
@@ -122,7 +122,8 @@ class DataConfigs:
         # language part
         self.language_dir = os.path.join(self.data_dir, 'language')
         self.vid2language_path = os.path.join(self.language_dir, 'vid2language.pkl')
-        self.vid2fillmask_path = os.path.join(self.data_dir, 'vid2fillmask_{}.pkl'.format(self.dataset_name))
+        self.vid2fillmask_path = os.path.join(self.language_dir, 'vid2fillmask_{}.pkl'.format(self.dataset_name))
+        #！！！原self.vid2fillmask_path = os.path.join(self.data_dir, 'vid2fillmask_{}.pkl'.format(self.dataset_name))
         self.word2idx_path = os.path.join(self.language_dir, 'word2idx.pkl')
         self.idx2word_path = os.path.join(self.language_dir, 'idx2word.pkl')
         self.embedding_weights_path = os.path.join(self.language_dir, 'embedding_weights.pkl')

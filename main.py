@@ -33,7 +33,7 @@ if __name__ == '__main__':
     model = model.float()
     model.to(device)
 
-    model = train_fn(cfgs, cfgs.model_name, model, hungary_matcher, train_loader, valid_loader, device)
+    # model = train_fn(cfgs, cfgs.model_name, model, hungary_matcher, train_loader, valid_loader, device)
     model.load_state_dict(torch.load(cfgs.train.save_checkpoints_path))
     model.eval()
     test_fn(cfgs, model, test_loader, device)
