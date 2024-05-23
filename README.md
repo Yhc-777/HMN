@@ -190,7 +190,6 @@ python -u main.py --dataset_name MSVD --entity_encoder_layer 2 --entity_decoder_
 			--object_name vg_objects --object_dim 2048 \
 			--max_epochs 20 --save_checkpoints_every 500 \
 			--data_dir ./data --model_name HMN \
-			--language_dir_name language --language_package_name vid2language_old \
 			--learning_rate 1e-4 --lambda_entity 0.6 --lambda_predicate 0.3 --lambda_sentence 1.0 --lambda_soft 0.5 
 ```
 
@@ -237,7 +236,7 @@ python3 main.py --dataset_name MSVD \
 				--object_name vg_objects --object_dim 2048 \
 				--max_epochs 20 --save_checkpoints_every 500 \
 				--data_dir ./data --model_name HMN --learning_rate 1e-4 \
-				--lambda_entity 0.6 --lambda_predicate 0.3 --lambda_a_sentence 1.0 \
+				--lambda_entity 0.6 --lambda_predicate 0.3 \
 				--lambda_soft 0.5 \
 				--save_checkpoints_path checkpoints/MSVD/HMN_MSVD_model.ckpt
 ```
